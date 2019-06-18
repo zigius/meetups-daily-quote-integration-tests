@@ -70,15 +70,17 @@ services:
 #      - 8022:8022
 
 
-#  smtp:
-#    image: fake-smtp-server:latest
-#    restart: always
-#    container_name: smtp
-#    networks:
-#      - nodejsmeetup
-#    ports:
-#      - 2525:2525
-#      - 2080:2080
+
+  smtp:
+    image: zigius/fake-smtp-server:latest
+    restart: always
+    container_name: smtp
+    networks:
+      - nodejsmeetup
+    ports:
+      - 2525:2525
+      - 2080:2080
+
 
 volumes:
   mysql_data:
