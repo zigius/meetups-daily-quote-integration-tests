@@ -53,32 +53,32 @@ services:
     networks:
       - nodejsmeetup
 
-  commit-worker:
-    image: commit-worker:staging
-    restart: always
-    command: bash -c 'sleep 25 && npm start'
-    container_name: commit-worker
-    networks:
-      - nodejsmeetup
-    environment:
-      NODE_ENV: pipeline-test
-      MYSQL_USER: it_user
-      MYSQL_PASSWORD: user1234
-      EMAIL_USER: fakeemail@ironsrc.com
-      EMAIL_PASS: fakepassword
-    ports:
-      - 8022:8022
+#  commit-worker:
+#    image: commit-worker:staging
+#    restart: always
+#    command: bash -c 'sleep 25 && npm start'
+#    container_name: commit-worker
+#    networks:
+#      - nodejsmeetup
+#    environment:
+#      NODE_ENV: pipeline-test
+#      MYSQL_USER: it_user
+#      MYSQL_PASSWORD: user1234
+#      EMAIL_USER: fakeemail@ironsrc.com
+#      EMAIL_PASS: fakepassword
+#    ports:
+#      - 8022:8022
 
 
-  smtp:
-    image: fake-smtp-server:latest
-    restart: always
-    container_name: smtp
-    networks:
-      - nodejsmeetup
-    ports:
-      - 2525:2525
-      - 2080:2080
+#  smtp:
+#    image: fake-smtp-server:latest
+#    restart: always
+#    container_name: smtp
+#    networks:
+#      - nodejsmeetup
+#    ports:
+#      - 2525:2525
+#      - 2080:2080
 
 volumes:
   mysql_data:
