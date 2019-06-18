@@ -71,7 +71,7 @@ services:
 
 
   smtp:
-    image: fake-smtp-server:latest
+    image: zigius/fake-smtp-server:latest
     restart: always
     container_name: smtp
     networks:
