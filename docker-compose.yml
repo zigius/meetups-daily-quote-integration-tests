@@ -1,0 +1,89 @@
+version: '3.5'
+services:
+  redis:
+    image: redis:4
+    restart: always
+    container_name: redis
+    networks:
+      - nodejsmeetup
+    ports:
+      - 6379:6379
+
+  mysql:
+    image: mysql:5.7.21
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    container_name: mysql
+    networks:
+      - nodejsmeetup
+    environment:
+      MYSQL_ROOT_PASSWORD: integration
+      MYSQL_USER: it_user
+      MYSQL_PASSWORD: user1234
+      MYSQL_DATABASE: appquarium
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql_data:/docker-entrypoint-initdb.d
+
+  localstack:
+    image: localstack/localstack
+    container_name: localstack
+    ports:
+      - "4567-4583:4567-4583"
+      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+    environment:
+      - SERVICES=sqs
+      - DEBUG=${DEBUG- }
+      - PORT_WEB_UI=${PORT_WEB_UI- }
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    networks:
+      - nodejsmeetup
+    volumes:
+      - "/private${TMPDIR:-/tmp/localstack}:/tmp/localstack" # mac needs private route instead of tempDir
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./localstack:/docker-entrypoint-initaws.d"
+
+  fakehttpserver:
+    image: jordimartin/mmock
+    container_name: fakehttpserver
+    ports:
+      - 8082:8082
+      - 8083:8083
+    networks:
+      - nodejsmeetup
+
+  commit-worker:
+    image: commit-worker:staging
+    restart: always
+    command: bash -c 'sleep 25 && npm start'
+    container_name: commit-worker
+    networks:
+      - nodejsmeetup
+    environment:
+      NODE_ENV: pipeline-test
+      MYSQL_USER: it_user
+      MYSQL_PASSWORD: user1234
+      EMAIL_USER: fakeemail@ironsrc.com
+      EMAIL_PASS: fakepassword
+    ports:
+      - 8022:8022
+
+
+  smtp:
+    image: fake-smtp-server:latest
+    restart: always
+    container_name: smtp
+    networks:
+      - nodejsmeetup
+    ports:
+      - 2525:2525
+      - 2080:2080
+
+volumes:
+  mysql_data:
+
+networks:
+  nodejsmeetup:
+    driver: bridge
+
