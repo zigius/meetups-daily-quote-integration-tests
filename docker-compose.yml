@@ -20,7 +20,7 @@ services:
       MYSQL_ROOT_PASSWORD: integration
       MYSQL_USER: it_user
       MYSQL_PASSWORD: user1234
-      MYSQL_DATABASE: appquarium
+      MYSQL_DATABASE: daily_quote
     ports:
       - 3306:3306
     volumes:
@@ -53,23 +53,31 @@ services:
     networks:
       - nodejsmeetup
 
-#  commit-worker:
-#    image: commit-worker:staging
-#    restart: always
-#    command: bash -c 'sleep 25 && npm start'
-#    container_name: commit-worker
-#    networks:
-#      - nodejsmeetup
-#    environment:
-#      NODE_ENV: pipeline-test
-#      MYSQL_USER: it_user
-#      MYSQL_PASSWORD: user1234
-#      EMAIL_USER: fakeemail@ironsrc.com
-#      EMAIL_PASS: fakepassword
-#    ports:
-#      - 8022:8022
+  daily-quote-worker:
+    image: daily-quote-worker:staging
+    restart: always
+    command: bash -c 'sleep 25 && npm start'
+    container_name: daily-quote-worker
+    networks:
+      - nodejsmeetup
+    environment:
+      NODE_ENV: pipeline-test
+      MYSQL_USER: it_user
+      MYSQL_PASSWORD: user1234
+      EMAIL_USER: fakeemail@ironsrc.com
+      EMAIL_PASS: fakepassword
 
-
+  daily-quote-api:
+    image: daily-quote-api:staging
+    restart: always
+    command: bash -c 'sleep 25 && npm start'
+    container_name: daily-quote-api
+    networks:
+      - nodejsmeetup
+    environment:
+      NODE_ENV: pipeline-test
+    ports:
+      - 3010:3010
 
   smtp:
     image: zigius/fake-smtp-server:latest
