@@ -1,0 +1,11 @@
+services:
+  dailyQuoteApi:
+    url: localhost:3010
+
+mysql:
+  timezone: Z
+  host: localhost
+  database: daily_quote
+  user: it_user
+  password: user1234
+  connectionLimit: 5

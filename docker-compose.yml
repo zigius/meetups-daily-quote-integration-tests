@@ -54,7 +54,7 @@ services:
       - nodejsmeetup
 
   daily-quote-worker:
-    image: daily-quote-worker:staging
+    image: zigius/daily-quote-worker:staging
     restart: always
     command: bash -c 'sleep 25 && npm start'
     container_name: daily-quote-worker
@@ -68,7 +68,7 @@ services:
       EMAIL_PASS: fakepassword
 
   daily-quote-api:
-    image: daily-quote-api:staging
+    image: zigius/daily-quote-api:staging
     restart: always
     command: bash -c 'sleep 25 && npm start'
     container_name: daily-quote-api
