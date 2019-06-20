@@ -1,28 +1,31 @@
 {
-  "name": "commit-integration-tests",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
+  "name"        : "commit-integration-tests",
+  "version"     : "1.0.0",
+  "description" : "",
+  "main"        : "index.js",
+  "scripts"     : {
     "test": "jest --runInBand --config jest.config.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ramimoshe/commit-integration-tests.git"
+  "jest"        : {
+    "testEnvironment": "node"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
+  "repository"  : {
+    "type": "git",
+    "url" : "git+https://github.com/ramimoshe/commit-integration-tests.git"
+  },
+  "author"      : "",
+  "license"     : "ISC",
+  "bugs"        : {
     "url": "https://github.com/ramimoshe/commit-integration-tests/issues"
   },
-  "homepage": "https://github.com/ramimoshe/commit-integration-tests#readme",
+  "homepage"    : "https://github.com/ramimoshe/commit-integration-tests#readme",
   "dependencies": {
-    "bluebird": "^3.5.5",
-    "config": "^3.1.0",
-    "jest": "^24.8.0",
-    "js-yaml": "^3.13.1",
-    "lodash": "^4.17.11",
-    "mysql": "^2.17.1",
+    "bluebird"  : "^3.5.5",
+    "config"    : "^3.1.0",
+    "jest"      : "^24.8.0",
+    "js-yaml"   : "^3.13.1",
+    "lodash"    : "^4.17.11",
+    "mysql"     : "^2.17.1",
     "superagent": "^5.1.0"
   }
 }

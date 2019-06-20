@@ -2,7 +2,6 @@
 
 const Promise     = require('bluebird');
 const config      = require('config');
-const _           = require('lodash/fp');
 const request     = require('superagent');
 const mysqlClient = require('../../../clients/mysql');
 
@@ -30,5 +29,6 @@ test('valid arguments - should save save in mysql & send email', async () => {
     await Promise.delay(200);
 
     const allDailyQuotes = await mysqlClient.getAllDailyQuotes();
-    expect(allDailyQuotes.length).toBe(1);
+    expect(allDailyQuotes.length).toEqual(1);
+    expect(allDailyQuotes[0].to).toEqual('RamiM');
 });
