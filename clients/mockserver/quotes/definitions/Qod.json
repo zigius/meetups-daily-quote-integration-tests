@@ -1,0 +1,16 @@
+{
+  "description": "Default endpoint for the root of the site",
+  "request": {
+    "method": "GET",
+    "path": "/qod"
+  },
+  "response": {
+    "headers": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "statusCode": 200,
+    "body": ""
+  }
+}
