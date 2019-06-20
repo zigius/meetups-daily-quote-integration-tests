@@ -9,3 +9,6 @@ mysql:
   user: it_user
   password: user1234
   connectionLimit: 5
+mockserver:
+  host: "localhost"
+  managePort: 8082
