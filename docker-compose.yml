@@ -24,7 +24,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./mysql_data:/docker-entrypoint-initdb.d
+      - ./clients/mysql/data:/docker-entrypoint-initdb.d
 
   localstack:
     image: localstack/localstack
@@ -42,7 +42,7 @@ services:
     volumes:
       - "/private${TMPDIR:-/tmp/localstack}:/tmp/localstack" # mac needs private route instead of tempDir
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./localstack:/docker-entrypoint-initaws.d"
+      - "./clients/localstack:/docker-entrypoint-initaws.d"
 
   fakehttpserver:
     image: jordimartin/mmock
