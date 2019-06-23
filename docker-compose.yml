@@ -1,13 +1,31 @@
 version: '3.5'
 services:
-  redis:
-    image: redis:4
+
+  daily-quote-api:
+    image: zigius/daily-quote-api:staging
     restart: always
-    container_name: redis
+    command: bash -c 'sleep 25 && npm start'
+    container_name: daily-quote-api
     networks:
       - nodejsmeetup
+    environment:
+      NODE_ENV: pipeline-test
     ports:
-      - 6379:6379
+      - 3010:3010
+
+  daily-quote-worker:
+    image: zigius/daily-quote-worker:staging
+    restart: always
+    command: bash -c 'sleep 25 && npm start'
+    container_name: daily-quote-worker
+    networks:
+      - nodejsmeetup
+    environment:
+      NODE_ENV: pipeline-test
+      MYSQL_USER: it_user
+      MYSQL_PASSWORD: user1234
+      EMAIL_USER: fakeemail@ironsrc.com
+      EMAIL_PASS: fakepassword
 
   mysql:
     image: mysql:5.7.21
@@ -26,6 +44,25 @@ services:
     volumes:
       - ./clients/mysql/data:/docker-entrypoint-initdb.d
 
+  fakehttpserver:
+    image: jordimartin/mmock
+    container_name: fakehttpserver
+    ports:
+      - 8082:8082
+      - 8083:8083
+    networks:
+      - nodejsmeetup
+
+  smtp:
+    image: zigius/fake-smtp-server:latest
+    restart: always
+    container_name: smtp
+    networks:
+      - nodejsmeetup
+    ports:
+      - 2525:2525
+      - 2080:2080
+
   localstack:
     image: localstack/localstack
     container_name: localstack
@@ -43,52 +80,6 @@ services:
       - "/private${TMPDIR:-/tmp/localstack}:/tmp/localstack" # mac needs private route instead of tempDir
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./clients/localstack:/docker-entrypoint-initaws.d"
-
-  fakehttpserver:
-    image: jordimartin/mmock
-    container_name: fakehttpserver
-    ports:
-      - 8082:8082
-      - 8083:8083
-    networks:
-      - nodejsmeetup
-
-  daily-quote-worker:
-    image: zigius/daily-quote-worker:staging
-    restart: always
-    command: bash -c 'sleep 25 && npm start'
-    container_name: daily-quote-worker
-    networks:
-      - nodejsmeetup
-    environment:
-      NODE_ENV: pipeline-test
-      MYSQL_USER: it_user
-      MYSQL_PASSWORD: user1234
-      EMAIL_USER: fakeemail@ironsrc.com
-      EMAIL_PASS: fakepassword
-
-  daily-quote-api:
-    image: zigius/daily-quote-api:staging
-    restart: always
-    command: bash -c 'sleep 25 && npm start'
-    container_name: daily-quote-api
-    networks:
-      - nodejsmeetup
-    environment:
-      NODE_ENV: pipeline-test
-    ports:
-      - 3010:3010
-
-  smtp:
-    image: zigius/fake-smtp-server:latest
-    restart: always
-    container_name: smtp
-    networks:
-      - nodejsmeetup
-    ports:
-      - 2525:2525
-      - 2080:2080
-
 
 volumes:
   mysql_data:
