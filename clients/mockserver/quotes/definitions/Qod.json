@@ -11,15 +11,6 @@
       ]
     },
     "statusCode": 200,
-    "body"      : {
-      "contents": {
-        "quotes": [
-          {
-            "quote" : "hello everybody",
-            "author": "zig"
-          }
-        ]
-      }
-    }
+    "body"      : "{\"contents\": {\"quotes\": [{\"quote\" : \"hello everybody\", \"author\": \"zig\"}]}}"
   }
 }

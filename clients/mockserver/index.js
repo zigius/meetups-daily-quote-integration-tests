@@ -25,3 +25,14 @@ exports.addRoute = async (route, responseData) => {
     }
 };
 
+exports.deleteRoute = async (route) => {
+
+    try {
+        return await request
+            .delete(`${config.mockserver.host}:${config.mockserver.managePort}/api/mapping/${route}`);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
