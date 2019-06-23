@@ -1,7 +1,7 @@
 {
   "testEnvironment"    : "node",
   "testMatch"          : [
-    "**/**/test.js"
+    "**/**/test.spec.js"
   ],
   "testURL": "http://localhost/"
 }
