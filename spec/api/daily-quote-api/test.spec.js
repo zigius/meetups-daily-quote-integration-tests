@@ -6,17 +6,8 @@ const request     = require('superagent');
 const mysqlClient = require('../../../clients/mysql');
 
 
-beforeAll(async () => {
-});
-
 beforeEach(async () => {
     await mysqlClient.cleanDb();
-});
-
-afterEach(async () => {
-});
-
-afterAll(async () => {
 });
 
 
