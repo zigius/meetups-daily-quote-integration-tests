@@ -1,16 +1,25 @@
 {
   "description": "Default endpoint for the root of the site",
-  "request": {
+  "request"    : {
     "method": "GET",
-    "path": "/qod"
+    "path"  : "/qod"
   },
-  "response": {
-    "headers": {
+  "response"   : {
+    "headers"   : {
       "Content-Type": [
         "application/json"
       ]
     },
     "statusCode": 200,
-    "body": ""
+    "body"      : {
+      "contents": {
+        "quotes": [
+          {
+            "quote" : "hello everybody",
+            "author": "zig"
+          }
+        ]
+      }
+    }
   }
 }
