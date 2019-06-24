@@ -5,6 +5,7 @@ const config      = require('config');
 const request     = require('superagent');
 const mysqlClient = require('../../../clients/mysql');
 const mockserver  = require('../../../clients/mockserver');
+const smtpClient  = require('../../../clients/smtp');
 
 
 beforeEach(async () => {
@@ -34,4 +35,9 @@ test('valid arguments - should save save in mysql & send email', async () => {
     expect(allRequests.body.length).toEqual(1);
     expect(JSON.parse(allRequests.body[0].response.body)).toEqual(
         { 'contents': { 'quotes': [{ 'quote': 'hello everybody', 'author': 'zig' }] } });
+
+    const recordedEmails = await smtpClient.getRecordedEmails();
+    expect(recordedEmails).toEqual('expectedRecordedEmailsResponses[0].html');
+    expect(recordedEmails.body[0].subject).toEqual('expectedRecordedEmailsResponses[0].subject');
+
 });

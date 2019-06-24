@@ -12,3 +12,6 @@ mysql:
 mockserver:
   host: "localhost"
   managePort: 8082
+smtp:
+  host: localhost
+  managePort: 2080
