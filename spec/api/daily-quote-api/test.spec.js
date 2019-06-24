@@ -22,14 +22,14 @@ beforeAll(async () => {
 test('valid arguments - should save save in mysql & send email', async () => {
     await request.post(`${config.services.dailyQuoteApi.url}/send`)
         .send({
-            to: 'RamiM'
+            to: 'rami@moshe.com'
         });
 
     await Promise.delay(200);
 
     const allDailyQuotes = await mysqlClient.getAllDailyQuotes();
     expect(allDailyQuotes.length).toEqual(1);
-    expect(allDailyQuotes[0].to).toEqual('RamiM');
+    expect(allDailyQuotes[0].to).toEqual('rami@moshe.com');
 
     const allRequests = await mockserver.getAllRequests();
     expect(allRequests.body.length).toEqual(1);
@@ -37,7 +37,6 @@ test('valid arguments - should save save in mysql & send email', async () => {
         { 'contents': { 'quotes': [{ 'quote': 'hello everybody', 'author': 'zig' }] } });
 
     const recordedEmails = await smtpClient.getRecordedEmails();
-    expect(recordedEmails).toEqual('expectedRecordedEmailsResponses[0].html');
-    expect(recordedEmails.body[0].subject).toEqual('expectedRecordedEmailsResponses[0].subject');
+    expect(recordedEmails.body[0].to.text).toEqual('rami@moshe.com');
 
 });
