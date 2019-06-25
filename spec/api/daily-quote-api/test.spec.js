@@ -1,31 +1,30 @@
 'use strict';
 
-const Promise     = require('bluebird');
-const config      = require('config');
-const request     = require('superagent');
-const mysqlClient = require('../../../clients/mysql');
-const mockserver  = require('../../../clients/mockserver');
-const smtpClient  = require('../../../clients/smtp');
+const Promise                  = require('bluebird');
+const config                   = require('config');
+const request                  = require('superagent');
+const mysqlClient              = require('../../../clients/mysql');
+const mockserver               = require('../../../clients/mockserver');
+const smtpClient               = require('../../../clients/smtp');
+const httpMockServerReturnData = require('../../../clients/mockserver/quotes/definitions/Qod');
 
+
+beforeAll(async () => {
+    await mockserver.addRoute('Qod.json', httpMockServerReturnData);
+});
 
 beforeEach(async () => {
     await mysqlClient.cleanDb();
     await mockserver.cleanAllRecordedRequests();
 });
 
-beforeAll(async () => {
-    const httpMockServerReturnData = require('../../../clients/mockserver/quotes/definitions/Qod');
-    await mockserver.addRoute('Qod.json', httpMockServerReturnData);
-});
-
-
 test('valid arguments - should save save in mysql & send email', async () => {
-    await request.post(`${config.services.dailyQuoteApi.url}/send`)
+     await request.post(`${config.services.dailyQuoteApi.url}/send`)
         .send({
             to: 'rami@moshe.com'
         });
 
-    await Promise.delay(200);
+    await Promise.delay(2000);
 
     const allDailyQuotes = await mysqlClient.getAllDailyQuotes();
     expect(allDailyQuotes.length).toEqual(1);
