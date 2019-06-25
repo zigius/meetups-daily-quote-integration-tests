@@ -4,7 +4,7 @@ const config  = require('config');
 const Promise = require('bluebird');
 
 
-exports.cleanDb = async () => {
+exports.reset = async () => {
     const connection = index.createConnection(config.mysql);
 
     connection.connect();
