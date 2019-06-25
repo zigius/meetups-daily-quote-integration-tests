@@ -14,12 +14,13 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-    await mysqlClient.cleanDb();
-    await mockserver.cleanAllRecordedRequests();
+    await mysqlClient.reset();
+    await mockserver.reset();
+    await smtpClient.reset();
 });
 
 test('valid arguments - should save save in mysql & send email', async () => {
-     await request.post(`${config.services.dailyQuoteApi.url}/send`)
+    await request.post(`${config.services.dailyQuoteApi.url}/send`)
         .send({
             to: 'rami@moshe.com'
         });

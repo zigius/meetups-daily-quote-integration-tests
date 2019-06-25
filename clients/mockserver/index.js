@@ -4,7 +4,7 @@ const config  = require('config');
 const request = require('superagent');
 
 
-exports.cleanAllRecordedRequests = async () => {
+exports.reset = async () => {
     await request
         .get(`${config.mockserver.host}:${config.mockserver.managePort}/api/request/reset`);
 };
