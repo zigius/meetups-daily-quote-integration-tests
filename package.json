@@ -1,7 +1,7 @@
 {
-  "name": "commit-integration-tests",
+  "name": "meetups-daily-quote-integration-tests",
   "version": "1.0.0",
-  "description": "",
+  "description": "All integration tests for nodejsmeetup daily quotes system",
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand --config jest.config.json"
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ramimoshe/commit-integration-tests.git"
+    "url": "git+https://github.com/ironSource/meetups-daily-quote-integration-tests.git"
   },
-  "author": "",
+  "author": "https://github.com/zigius, https://github.com/ramimoshe",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ramimoshe/commit-integration-tests/issues"
+    "url": "https://github.com/ironSource/meetups-daily-quote-integration-tests/issues"
   },
-  "homepage": "https://github.com/ramimoshe/commit-integration-tests#readme",
+  "homepage": "https://github.com/ironSource/meetups-daily-quote-integration-tests#readme",
   "dependencies": {
     "bluebird": "^3.5.5",
     "clients": "file:clients",
